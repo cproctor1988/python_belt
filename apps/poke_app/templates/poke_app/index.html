@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link href="{% static 'poke_app/style.css' %}" rel="stylesheet" type="text/css" media="screen" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    {% if messages %}
+    <fieldset><legend>Errors</legend><ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    </fieldset>
+    {% endif %}
+    <fieldset><legend>Register</legend>
+        <form action="/register" method="POST">
+            {% csrf_token %}
+            <label>Name:<input type="text" method="POST" name="name"></input></label><br>
+            <label>alias:<input type="text" method="POST" name="alias"></input></label><br>
+            <label>email:<input type="text" method="POST" name="email"></input></label><br>
+            <label>Password:<input type="password" method="POST" name="password"></input></label><br>
+            <p>*Password should be atleast 8 characters</p>
+            <label>Confirm Password:<input type="password" method="POST" name="passconf"></input></label><br>
+            
+            <label>Date of birth*:<input type="date" method="POST" name="dob"></input></label><br>
+            <p>*not required</p>
+            <input type="submit" value="Register">
+        </form>
+    </fieldset>
+    <fieldset><legend>Login</legend>
+        <form action="/login" method="POST">
+            {% csrf_token %}
+            <label>Email:<input type="text" method="POST" name="email"></input></label><br>
+            <label>Password:<input type="password" method="POST" name="password"></input></label><br>
+            <input type="submit" value="login">
+        </form>
+    </fieldset>
+</body>
+</html>

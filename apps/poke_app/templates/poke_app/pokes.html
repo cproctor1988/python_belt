@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link href="{% static 'poke_app/style.css' %}" rel="stylesheet" type="text/css" media="screen" />
+    <title>Document</title>
+</head>
+<body>
+    <a href="/">Logout</a>
+    <h1>Hello {{request.session.alias}}!</h1>
+    <h3>You have been poked {{peoplepokedme.count}} Times!</h3>
+    
+    <fieldset>
+            {%for user in users%}
+        <P>{{user.alias}} Has made
+            {{user.poker.count}}
+            Pokes!</P>
+            {%endfor%}
+    </fieldset>
+    <fieldset>
+    <table class="poke">
+        <thead>
+            <th>Name</th>
+            <th>Alias</th>
+            <th>Email Address</th>
+            <th>Poke History</th>
+            <th>Action</th>
+        </thead>
+        <h2>People you may want to poke</h2>
+        <tbody>     
+        {% for user in users %}
+        <tr>
+            <td>{{user.name}}</td>
+            <td>{{user.alias}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.poked.all.count}}</td>
+            <td><a href='/poke/{{user.id}}'>Poke!</a></td>
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+    </fieldset>
+</body>
+</html>
